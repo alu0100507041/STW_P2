@@ -31,13 +31,13 @@ class Twitts
                 </form>
                 <br>
                 <br>
-                <strong> Nombre del usuario: #{usuario.name} 
-                Numero de twitts: #{ntwitts} </strong>
+                <strong>Nombre del usuario: #{usuario.name}</strong><br>
+                <strong>Numero de twitts: #{ntwitts} </strong>
                 EOS
                 for t in twitt
                    res.write <<-"HERE"
                    <ol>
-	              <p>Twitts: #{t.text} </p>
+	              <p>#{t.text}</p><br>
                    </ol>
              </body>
           </html>
