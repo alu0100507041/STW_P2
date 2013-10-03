@@ -2,18 +2,17 @@ require 'rack/request'
 require 'twitter'
 require './configure'
 
-class Twitts
- 
+class Twitts 
  def call env
     req = Rack::Request.new(env)
     res = Rack::Response.new
     binding.pry if ARGV[0]
     res['Content-Type'] = 'text/html'
-    name = (req["firstname"] != '') ? req["firstname"] :'Riesse_' #Nombre del usuario
+    name = (req["firstname"] != '') ? req["firstname"] :'RafaelNadal' #Nombre del usuario
     ntwitts = (req["ntw"]&& req["ntw"].to_i>1 !='') ? req["ntw"].to_i : 3 #Numero de Twitts
 
     usuario = Twitter.user(name) #Obtener el nombre del nombre del usuario
-    twitt = Twitter.user_timeline(name)[0..ntwitts.to_i] #delimitar array
+    twitt = Twitter.user_timeline(name)[0..ntwitts.to_i] #Obtener los twitts
 
     res.write <<-"EOS"
        <!DOCTYPE HTML>
@@ -21,23 +20,25 @@ class Twitts
              <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
              </head>
-             <title>Rack::Response</title>
+             <title>Practica Rack</title>
              <body>
+                <h1>Practica: Accediendo a Twitter y mostrando los ultimos twitts en una pagina</h1>
+                <h3>Sistemas y Tecnologias Web </h3>
                 <form action="/" method="post">
-                   <p>Nombre del usuario: </p><input type="text" name="firstname" autofocus><br>
-                   <p>Numero de Twitts: </p> <input type ="text" name="ntw" ><br>
+                   <p>Nombre del usuario:<input type="text" name="firstname" autofocus></p>
+                   <p>Numero de Twitts:<input type ="text" name="ntw" ></p>
 	           <input type="submit" value="Aceptar">
                 </form>
-                <p> Nombre del usuario: #{usuario.name} 
-                Numero de twitts: #{ntwitts} </p>
+                <br>
+                <br>
+                <strong> Nombre del usuario: #{usuario.name} 
+                Numero de twitts: #{ntwitts} </strong>
                 EOS
                 for t in twitt
                    res.write <<-"HERE"
                    <ol>
-	              <p>Twitt: #{t.text} </p>
+	              <p>Twitts: #{t.text} </p>
                    </ol>
-                   
-                
              </body>
           </html>
           HERE
