@@ -26,7 +26,7 @@ class Twitts
                 <form action="/" method="post">
                    <p>Nombre del usuario: </p><input type="text" name="firstname" autofocus><br>
                    <p>Numero de Twitts: </p> <input type ="text" name="ntw" ><br>
-	           <input type="submit" value="Aceptar">
+	           <input type="submit" value="Submit">
                 </form>
                 <p> Nombre del usuario: #{usuario.name} 
                 Numero de twitts: #{ntwitts} </p>
